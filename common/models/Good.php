@@ -12,6 +12,7 @@ use Yii;
  * @property int|null $price
  *
  * @property Order[] $orders
+ * @property-read string $clientName
  */
 class Good extends \yii\db\ActiveRecord
 {

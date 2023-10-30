@@ -31,17 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'username',
-//            'auth_key',
             [
                 'attribute' => 'password_hash',
                 'visible' => Yii::$app->user->identity->role === \common\enums\Role::ADMIN
             ],
-
-//            'password_reset_token',
             'email:email',
             [
                 'attribute' => 'role',
@@ -57,9 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => UserStatus::getList(),
             ],
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
