@@ -55,4 +55,9 @@ class Good extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::class, ['good_id' => 'id']);
     }
+
+    public function getClientName(){
+        $price = $this->price / 100;
+        return "{$this->name}: $price  р.";
+    }
 }
