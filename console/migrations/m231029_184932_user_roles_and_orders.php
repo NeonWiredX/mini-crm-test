@@ -1,6 +1,7 @@
 <?php
 
-use common\enums\RoleEnum;
+use common\enums\Role;
+use common\enums\UserStatus;
 use common\models\User;
 use \yii\db\Migration;
 
@@ -21,14 +22,14 @@ class m231029_184932_user_roles_and_orders extends Migration
             $this
                 ->string()
                 ->after('email')
-                ->defaultValue(RoleEnum::ROLE_MANAGER)
+                ->defaultValue(Role::MANAGER)
         );
 
         $user = new User();
         $user->username = 'admin';
         $user->email = 'admin@admin.ru';
-        $user->status = User::STATUS_ACTIVE;
-        $user->role = RoleEnum::ROLE_ADMIN;
+        $user->status = UserStatus::STATUS_ACTIVE;
+        $user->role = Role::ADMIN;
         $user->setPassword('admin');
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
@@ -55,7 +56,7 @@ class m231029_184932_user_roles_and_orders extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'price' => $this->integer(),
-        ],$tableOptions);
+        ], $tableOptions);
 
         $this->addForeignKey(
             'fk_order_good',
@@ -77,7 +78,7 @@ class m231029_184932_user_roles_and_orders extends Migration
 
     public function down()
     {
-        $this->dropForeignKey('fk_order_good','order');
+        $this->dropForeignKey('fk_order_good', 'order');
         $this->dropTable('good');
         $this->dropTable('order');
         User::findOne(['username' => 'admin'])->delete();
